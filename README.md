@@ -1,1 +1,1 @@
-# Python-for-huaban.com
+# Python-for-huaban
