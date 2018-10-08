@@ -13,6 +13,7 @@ from urllib.parse import quote
 from tkinter import *
 from tkinter import ttk
 import threading
+from tkinter.filedialog import askdirectory
 
 global code
 code = 'utf-8'
@@ -119,7 +120,7 @@ def getChap(Book,start_num,end_num,path,chap_re):
 		chap_url = book_url + chap[0] + '.html'
 		chap_str = getStr(chap_url,chap_re)[0]
 		chap = chap_str.replace("&nbsp;", " ").replace('<br/>','\n').replace('<br />','\n').replace('</br>','\n');
-		fo = open(file, mode = 'w', encoding = 'utf-8',)  if num == 1  else open(file, mode = 'a', encoding = 'utf-8',)
+		fo = open(file, mode = 'w', encoding = 'utf-8')  if num == 1  else open(file, mode = 'a', encoding = 'utf-8',)
 		fo.write( chap_title + "\n" + chap + "\n\n\n")
 		end_time = time.time()
 		if num == start_num:
@@ -198,6 +199,10 @@ def fun3():
 def fun4():
 	sys.exit()
 	
+def selectPath():
+    path_ = askdirectory()
+    v5.set(path_)
+	
 root = Tk(className = "小说下载工具 by Wyili")
 
 FM = Frame(root)
@@ -223,12 +228,16 @@ e1.current(0)
 e2 = Entry(fm2,textvariable=v2,font = 35)
 e3 = Entry(fm2,textvariable=v3,font = 35)
 e4 = Entry(fm2,textvariable=v4,font = 35)
-e5 = Entry(fm2,textvariable=v5,font = 35)
+fm3 = Frame(fm2)
+e5 = Entry(fm3,textvariable=v5,font = 35)
+e6 = Button(fm3,text = "路径选择", command = selectPath,font = 35)
 e1.pack(side=TOP, anchor=W, fill=X, expand=YES,ipady=2.5)
 e2.pack(side=TOP, anchor=W, fill=X, expand=YES,ipady=2.5)
 e3.pack(side=TOP, anchor=W, fill=X, expand=YES,ipady=2.5)
 e4.pack(side=TOP, anchor=W, fill=X, expand=YES,ipady=2.5)
-e5.pack(side=TOP, anchor=W, fill=X, expand=YES,ipady=2.5)
+e5.pack(side=LEFT, anchor=W, fill=X, expand=YES,ipady=4)
+e6.pack(side=LEFT, anchor=W, fill=X, expand=YES,ipady=2)
+fm3.pack(side=TOP, fill=BOTH, expand=YES)
 fm2.pack(side=LEFT, fill=BOTH, expand=YES)
 fm.pack(side=TOP, fill=BOTH, expand=YES)
 e2.insert(END,'搜索书名之后再下载')
